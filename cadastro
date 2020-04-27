@@ -1,0 +1,118 @@
+import React, { Component } from 'react';
+import './styles.css';
+import { Form, Input, Button,DatePicker, Checkbox } from 'antd';
+import logoBranca from './logoBranca.png';
+import api from '../../services/api';
+
+
+
+export default class Account extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      name: '', 
+      lastname: '',
+      birthday: '',
+      whatsapp: '',
+      email: '',
+      password: ''
+    };
+
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeLastname = this.handleChangeLastname.bind(this);
+    this.handleChangeBirthday = this.handleChangeBirthday.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChangeName(event) {
+    this.setState({ 
+      name: event.target.value
+    });
+  }
+
+  handleChangeLastname(event) {
+    this.setState({ 
+      lastname: event.target.value
+    });
+  }
+
+  handleChangeBirthday(event) {
+    this.setState({ 
+      birthday: event.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    console.log('nome: ' + this.state.name + '|' + 'sobrenome: ' + this.state.lastname + 'aniversário: ' + this.state.birthday);
+  }
+
+  render() {
+
+    return (
+      <div className="createAccount">
+        <div className="leftSide">
+          <div className="leftSideWelcome">
+            <h1>Bem Vindo!</h1>
+          </div>
+
+          <div className="leftSideImg">
+            <img src={logoBranca} width="180" />
+          </div>
+
+          <div className="leftSideLogin">
+            <p>Já possui uma conta?</p>
+            <Button>Entrar</Button>
+          </div>
+
+        </div>
+
+        <div className="rightSide">
+          <div className="title">
+            <h1>Cadastro</h1>
+            <p>Preencha o formulário abaixo para se cadastrar.</p>
+          </div>
+          <Form layout={'vertical'} onFinish={this.handleSubmit}>
+
+            <Form.Item label="name">
+              <Input placeholder="Ex: Ana" name="name" value={this.state.name} onChange={this.handleChangeName} />
+            </Form.Item>
+
+            <Form.Item label="Sobrename">
+              <Input  placeholder="Ex: Da Silva" name="lastname" value={this.state.lastname} onChange={this.handleChangeLastname} />
+            </Form.Item>
+
+            <Form.Item label="Data de Nascimento" >
+            
+              <DatePicker format="DD/MM/YYYY" name="birthday" onChange={this.handleChangeBirthday}/>
+            </Form.Item>
+
+            <Form.Item label="WhatsApp">
+              <Input placeholder="Ex: (01) 23456-7890" name="whatsapp" />
+            </Form.Item>
+
+            <Form.Item label="E-mail">
+              <Input placeholder="Ex: anadasilda@gmail.com" name="email" />
+            </Form.Item>
+
+            <Form.Item label="Senha">
+              <Input.Password placeholder="Ex: Senha123*%#" name="password" />
+            </Form.Item>
+
+            <Form.Item>
+              <Checkbox >Li e aceito os termos de uso e política de privacidade .</Checkbox>
+            </Form.Item>
+
+            
+            <input type="submit" value="Enviar" />
+            
+          </Form>
+
+
+
+        </div>
+
+      </div>
+    )
+  }
+}
+
